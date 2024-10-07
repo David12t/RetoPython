@@ -1,0 +1,11 @@
+CREAMOS EL CONTENEDOR
+docker run --name mi-mongodb-contenedor-completo -d -p 27017:27017 mongo:5.0
+
+EJECUTAMOS EL CONTENEDOR Y ABRIMOS UNA SESION BASH DENTRO DEL CONTENEDOR
+docker exec -it mi-mongodb-contenedor-completo bash
+
+COPIAMOS EL ARCHIVO DESDE NUESTRO DIRECTORIO AL CONTENEDOR
+docker cp resultados_ultima_posicion.json mi-mongodb-contenedor-completo:/resultados_ultima_posicion.json
+
+IMPORTAMOS LOS DATOS JSON A MONGODB
+docker exec -it mi-mongodb-contenedor-completo mongoimport --db miBaseDeDatos --collection miColeccion --drop --file /resultados_ultima_posicion.json --jsonArray
